@@ -16,7 +16,18 @@ if (path.extname(__dirname) === '.asar') {
   jarDir = path.join(__dirname, 'jar')
 }
 
-parser.loadPipeline({path: jarDir, java: java}, function (err) {
+const pipelineOptions = {
+  path: jarDir,
+  java: java,
+  annotators: [
+    'tokenize',
+    'ssplit',
+    'pos',
+    'parse'
+  ]
+}
+
+parser.loadPipeline(pipelineOptions, function (err) {
   if (err) {
     console.log(err);
   }
