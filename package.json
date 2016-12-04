@@ -1,7 +1,7 @@
 {
   "name": "slash-reader",
   "productName": "Slash Reader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Helps you understand long English sentences by slashing them up into chunks",
   "repository": {
     "type": "git",
