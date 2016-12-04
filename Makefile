@@ -9,13 +9,11 @@ elm.js: src/*.elm
 main.css: src/Stylesheet.elm src/CssMain.elm
 	./node_modules/.bin/elm-css src/CssMain.elm -e ./node_modules/.bin/elm-make
 
-jar/stanford-corenlp-$(CORENLP_VERSION).jar:
-	curl -sO http://nlp.stanford.edu/software/stanford-corenlp-full-$(CORENLP_DATE).zip
-	rm -rf jar stanford-corenlp-full-$(CORENLP_DATE)
-	unzip stanford-corenlp-full-$(CORENLP_DATE).zip
-	mv stanford-corenlp-full-$(CORENLP_DATE) jar
-	rm stanford-corenlp-full-$(CORENLP_DATE).zip
+jar/stanford-corenlp-$(CORENLP_VERSION).jar: stanford-corenlp-full-$(CORENLP_DATE).zip
+	./script/extract_corenlp.sh $(CORENLP_VERSION) $(CORENLP_DATE)
 
+stanford-corenlp-full-$(CORENLP_DATE).zip:
+	curl -sO http://nlp.stanford.edu/software/stanford-corenlp-full-$(CORENLP_DATE).zip
 
 build/icon.icns: assets/icon_512.png
 	mkdir build/icon.iconset
