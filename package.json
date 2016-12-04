@@ -1,0 +1,37 @@
+{
+  "name": "slash-reader",
+  "productName": "Slash Reader",
+  "version": "1.0.0",
+  "description": "Helps you understand long English sentences by slashing them up into chunks",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ento/slash-reader.git"
+  },
+  "main": "main.js",
+  "scripts": {
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "author": "Marica Odagaki",
+  "license": "BSD3",
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron-builder": "^10.5.0",
+    "electron-prebuilt": "^1.4.10",
+    "electron-rebuild": "^1.4.0",
+    "elm": "^0.18.0",
+    "elm-css": "^0.6.0"
+  },
+  "dependencies": {
+    "electron-debug": "^1.1.0",
+    "stanford-simple-nlp": "ento/node-stanford-simple-nlp#support-latest"
+  },
+  "build": {
+    "appId": "cc.stillspinning.kobngi",
+    "asarUnpack": [
+      "node_modules/java/**/*",
+      "jar/**/*"
+    ],
+    "mac": {}
+  }
+}

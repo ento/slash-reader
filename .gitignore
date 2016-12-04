@@ -1,0 +1,7 @@
+build/icon.icns
+dist/
+elm-stuff/
+elm.js
+jar/
+main.css
+node_modules/
