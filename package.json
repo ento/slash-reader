@@ -32,6 +32,11 @@
       "node_modules/java/**/*",
       "jar/**/*"
     ],
+    "files": [
+      "!stanford-corenlp-full-*.zip",
+      "!src/**/*",
+      "!script/**/*"
+    ],
     "mac": {}
   }
 }
