@@ -1,5 +1,6 @@
 'use strict'
 const electron = require('electron')
+const Menu = require("menu")
 require('electron-debug')()
 
 const app = electron.app
@@ -20,6 +21,29 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  const template = [
+    {
+      label: "Slash Reader",
+      submenu: [
+        { label: "About Slash Reader", selector: "orderFrontStandardAboutPanel:" },
+        { type: "separator" },
+        { label: "Quit Slash Reader", accelerator: "Command+Q", click: function() { app.quit(); }}
+      ]},
+    {
+      label: "Edit",
+      submenu: [
+        { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+        { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+        { type: "separator" },
+        { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+        { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+        { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+        { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+      ]}
+    ];
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }
 
 /* Mac Specific things */
