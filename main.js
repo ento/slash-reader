@@ -1,10 +1,6 @@
 'use strict'
-const electron = require('electron')
-const Menu = require("menu")
+const {app, Menu, BrowserWindow} = require('electron')
 require('electron-debug')()
-
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
 
 let mainWindow
 
