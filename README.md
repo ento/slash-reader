@@ -15,6 +15,9 @@ These slashes are placed based on the following rules:
 
 [Reference](http://knowledge-plus.com/english/802/)
 
+
+This app comes bundled with a subset of [Stanford CoreNLP](http://stanfordnlp.github.io/CoreNLP/).
+
 ## Tinkering
 
 ```
