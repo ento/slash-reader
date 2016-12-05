@@ -19,14 +19,13 @@ main =
 
 
 type alias Model =
-    { sents : List (Result String SyntaxTree)
-    , lastError : Maybe String
+    { sentences : List (Result String SyntaxTree)
     }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { sents = [], lastError = Nothing }, parse initInput )
+    ( { sentences = [] }, parse initInput )
 
 
 initInput : String
@@ -57,7 +56,7 @@ viewInput model =
 
 viewResult : Model -> Html msg
 viewResult model =
-    model.sents
+    model.sentences
         |> List.map SyntaxTree.viewResult
         |> List.map (\result -> section [ root.class [ Result ] ] [ result ])
         |> section [ root.class [ ResultContainer ] ]
@@ -76,10 +75,10 @@ update msg model =
     case msg of
         ParseResult results ->
             let
-                sents =
+                sentences =
                     List.map SyntaxTree.fromJson results
             in
-                ( { model | sents = sents }, Cmd.none )
+                ( { model | sentences = sentences }, Cmd.none )
 
         Parse str ->
             ( model, parse str )
