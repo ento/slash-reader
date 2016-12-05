@@ -11,7 +11,7 @@ These slashes are placed based on the following rules:
 5. Before a non-finite verb _(to be implemented)_
 6. Before a conjunction that connects sentences
 7. Before a long object or a complement _(to be implemented)_
-8. Before a long subject _(to be implemented)_
+8. After a long subject _(to be implemented)_
 
 [Reference](http://knowledge-plus.com/english/802/)
 
