@@ -1,5 +1,5 @@
 {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "summary": "Helps you understand long English sentences by slashing them up into chunks",
     "repository": "https://github.com/ento/slash-reader.git",
     "license": "BSD3",
