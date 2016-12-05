@@ -13,7 +13,7 @@
     "dist": "build"
   },
   "author": "Marica Odagaki",
-  "license": "BSD3",
+  "license": "GPLv3",
   "devDependencies": {
     "devtron": "^1.4.0",
     "electron-builder": "^10.5.0",
