@@ -1,5 +1,6 @@
 This app helps you understand long English sentences by slashing them up into chunks.
 
+![Screenshot](https://cloud.githubusercontent.com/assets/21108/20870624/5a63ddd6-ba40-11e6-8337-486b5a2349b0.png)
 
 These slashes are placed based on the following rules:
 
