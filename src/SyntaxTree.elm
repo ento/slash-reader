@@ -5,11 +5,8 @@ module SyntaxTree exposing (SyntaxTree, fromJson, viewResult)
 @docs SyntaxTree, fromJson, viewResult
 -}
 
-import Css
 import Json.Decode as Json exposing (..)
 import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.CssHelpers exposing (withNamespace)
 import PennTag exposing (PennTag(..))
 import Stylesheet exposing (root, slashed, tree, SlashClass(..))
 
