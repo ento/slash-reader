@@ -22,8 +22,7 @@ type SyntaxTree
 
 
 type alias PhraseData =
-    { groupingDepth : Maybe Int
-    , slash : SlashClass
+    { slash : SlashClass
     , tag : PennTag
     , children : List SyntaxTree
     }
@@ -46,7 +45,6 @@ type alias WordData =
 fromJson : Json.Value -> Result String SyntaxTree
 fromJson value =
     decodeValue syntaxTree value
-        |> Result.map assignGroupingDepths
         |> Result.map placeSlashes
 
 
@@ -55,7 +53,7 @@ syntaxTree =
     oneOf
         [ Json.map
             Phrase
-            (map2 (PhraseData Nothing None)
+            (map2 (PhraseData None)
                 (field "type" (Json.map PennTag.fromString string))
                 (field "children" (Json.list (lazy (\_ -> syntaxTree))))
             )
@@ -68,58 +66,6 @@ syntaxTree =
                 (field "word" string)
             )
         ]
-
-
-isWord : SyntaxTree -> Bool
-isWord tree =
-    case tree of
-        Phrase _ ->
-            False
-
-        Word _ ->
-            True
-
-
-hasWordInChildren : SyntaxTree -> Bool
-hasWordInChildren tree =
-    case tree of
-        Phrase data ->
-            List.any isWord data.children
-
-        Word _ ->
-            False
-
-
-assignGroupingDepths : SyntaxTree -> SyntaxTree
-assignGroupingDepths tree =
-    case tree of
-        Phrase data ->
-            let
-                newChildren =
-                    data.children
-                        |> List.map assignGroupingDepths
-
-                newDepth =
-                    newChildren
-                        |> List.map groupingDepth
-                        |> List.minimum
-                        |> Maybe.withDefault 0
-                        |> (+) 1
-            in
-                Phrase { data | groupingDepth = Just newDepth, children = newChildren }
-
-        Word data ->
-            Word data
-
-
-groupingDepth : SyntaxTree -> Int
-groupingDepth tree =
-    case tree of
-        Phrase data ->
-            Maybe.withDefault 0 data.groupingDepth
-
-        Word _ ->
-            0
 
 
 placeSlashes : SyntaxTree -> SyntaxTree
@@ -159,10 +105,6 @@ slashForPhrase data =
             None
 
 
-type alias Level =
-    Int
-
-
 
 -- VIEW
 
@@ -171,43 +113,31 @@ viewResult : Result String SyntaxTree -> Html msg
 viewResult result =
     case result of
         Ok tree ->
-            viewTree 0 tree
+            viewTree tree
 
         Err error ->
             viewError error
 
 
-viewTree : Level -> SyntaxTree -> Html msg
-viewTree currentLevel tree =
+viewTree : SyntaxTree -> Html msg
+viewTree tree =
     case tree of
         Phrase data ->
-            viewPhrase currentLevel data
+            viewPhrase data
 
         Word data ->
             viewWord data
 
 
-viewPhrase : Level -> PhraseData -> Html msg
-viewPhrase currentLevel data =
-    let
-        hasWordInGrandchildren =
-            List.any hasWordInChildren data.children
-
-        currentDepth =
-            Maybe.withDefault 0 data.groupingDepth
-    in
-        data.children
-            |> List.map (viewTree (currentLevel - 1))
-            |> span
-                [ slashed.class [ data.slash ]
-                , tree.class [ Stylesheet.Phrase ]
-                , tree.class [ data.tag ]
-                , classList
-                    [ ( "phrase-level-" ++ toString currentLevel, True )
-                    , ( "phrase-depth-" ++ toString currentDepth, True )
-                    , ( "phrase-word-group", hasWordInGrandchildren )
-                    ]
-                ]
+viewPhrase : PhraseData -> Html msg
+viewPhrase data =
+    data.children
+        |> List.map viewTree
+        |> span
+            [ slashed.class [ data.slash ]
+            , tree.class [ Stylesheet.Phrase ]
+            , tree.class [ data.tag ]
+            ]
 
 
 viewWord : WordData -> Html msg
